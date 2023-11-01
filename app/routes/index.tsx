@@ -1,7 +1,7 @@
-import { json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
-import { prisma } from '~/lib/prisma.server'
-import Post from '~/components/Post'
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { prisma } from "~/lib/prisma.server";
+import Post from "~/components/Post";
 
 export async function loader() {
   const feed = await prisma.post.findMany({
@@ -10,14 +10,16 @@ export async function loader() {
       id: true,
       title: true,
       author: true,
-    }
-  })
+    },
+  });
 
-  return json({ feed })
+  console.log(feed);
+
+  return json({ feed });
 }
 
 export default function Index() {
-  const { feed } = useLoaderData<typeof loader>()
+  const { feed } = useLoaderData<typeof loader>();
   return (
     <div className="page">
       <h1>My Blog</h1>
